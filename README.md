@@ -9,7 +9,7 @@ sdk use java 25.0.2-open
 ```
 2) TornadoVM
 ``` bash
-sdk use tornadovm 3.0.0-jdk25-ptx
+sdk use tornadovm 4.0.1-jdk25-ptx
 ```
 
 3) Manual Clone and Build Quarkus-langchain4j to enable jdk25 support:
@@ -23,7 +23,7 @@ mvn clean install -DskipTests -DTornado
 ### Build
 Build all demos:
 ```bash
-cd ~/Quarkus-Langchain4j-GPULlama3-Demos
+cd <your-path>/gpullama3-quarkus-langchain4j-demo
 mvn clean install
 ```
 
