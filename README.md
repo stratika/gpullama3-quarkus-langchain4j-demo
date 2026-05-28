@@ -52,7 +52,7 @@ This installs `quarkus-langchain4j-gpu-llama3:1.10.0` (matching `<quarkus-langch
 From the repo root:
 
 ```bash
-mvn clean install
+./mvnw clean install
 ```
 
 This produces a runnable `target/quarkus-app/quarkus-run.jar` inside each `demos/<demo>/` directory.
