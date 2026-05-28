@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Usage: scripts/run-java-coder-demo.sh ["<prompt>"]
-# Default prompt: "Write a Hello World Java program"
-PROMPT="${*:-Write a Hello World Java program}"
+# Default prompt: "Write a Java class to print HelloWorld"
+PROMPT="${*:-Write a Java class to print HelloWorld}"
 CMD=(java
     "@$TORNADOVM_HOME/tornado-argfile"
     --add-modules jdk.incubator.vector

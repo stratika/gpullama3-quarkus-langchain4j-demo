@@ -32,6 +32,11 @@ public class JavaCoderDemo implements QuarkusApplication {
         System.out.println();
 
         String response  = codeGen.generateCode(prompt);
+        System.out.println("LLM Response (Code Generation):");
+        System.out.println("-------------------------------");
+        System.out.println(response);
+        System.out.println();
+
         String code      = extractCode(response);
         String className = extractClassName(code);
         String filename  = className + ".java";
@@ -39,9 +44,10 @@ public class JavaCoderDemo implements QuarkusApplication {
 
         tools.writeFile(filename, code);
 
-        System.out.println("Result:");
-        System.out.println("-------");
-        System.out.println(runner.execute(filename, className));
+        response = runner.execute(filename, className);
+        System.out.println("LLM Response (Build & Run):");
+        System.out.println("---------------------------");
+        System.out.println(response);
         return 0;
     }
 
