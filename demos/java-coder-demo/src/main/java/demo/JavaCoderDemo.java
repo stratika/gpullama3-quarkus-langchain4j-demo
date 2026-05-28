@@ -18,9 +18,9 @@ public class JavaCoderDemo implements QuarkusApplication {
     private static final Pattern CODE_BLOCK   = Pattern.compile("```(?:java)?\\s*\\n(.+?)```", Pattern.DOTALL);
     private static final Pattern PUBLIC_CLASS = Pattern.compile("public\\s+class\\s+(\\w+)");
 
-    @Inject JavaExecutionAgent codeGen;
-    @Inject JavaRunnerAgent    runner;
-    @Inject JavaCoderTools     tools;
+    @Inject JavaCodeGeneratorAgent codeGenAgent;
+    @Inject CodeWriterAgent codeWriterAgent;
+    @Inject JavaRunnerAgent runnerAgent;
 
     @Override
     public int run(String... args) {
@@ -31,9 +31,9 @@ public class JavaCoderDemo implements QuarkusApplication {
         System.out.println("Prompt: " + prompt);
         System.out.println();
 
-        String response  = codeGen.generateCode(prompt);
         System.out.println("LLM Response (Code Generation):");
         System.out.println("-------------------------------");
+        String response  = codeGenAgent.generateCode(prompt);
         System.out.println(response);
         System.out.println();
 
@@ -42,12 +42,17 @@ public class JavaCoderDemo implements QuarkusApplication {
         String filename  = className + ".java";
         LOG.infof("[JavaCoder] generated %d chars → %s", code.length(), filename);
 
-        tools.writeFile(filename, code);
+        System.out.println("LLM Response (Code Writing):");
+        System.out.println("---------------------------");
+        response = codeWriterAgent.writeFile(filename, code);
+        System.out.println(response);
+        System.out.println();
 
-        response = runner.execute(filename, className);
         System.out.println("LLM Response (Build & Run):");
         System.out.println("---------------------------");
+        response = runnerAgent.execute(filename, className);
         System.out.println(response);
+        System.out.println();
         return 0;
     }
 

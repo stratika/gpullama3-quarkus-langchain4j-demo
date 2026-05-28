@@ -11,7 +11,7 @@ import jakarta.enterprise.context.ApplicationScoped;
  */
 @ApplicationScoped
 @RegisterAiService(chatMemoryProviderSupplier = RegisterAiService.NoChatMemoryProviderSupplier.class)
-public interface JavaExecutionAgent {
+public interface JavaCodeGeneratorAgent {
 
     @UserMessage("""
             Write a complete, compilable Java program for the following request.

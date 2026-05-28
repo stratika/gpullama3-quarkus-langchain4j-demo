@@ -18,7 +18,10 @@ public class JavaCoderTools {
     static final Path WORKSPACE = Path.of(System.getProperty("java.io.tmpdir"), "gpu-llama3-java-coder");
     private static final Path JAVA_BIN = Path.of(System.getProperty("java.home"), "bin");
 
-    public void writeFile(String filename, String code) {
+    @Tool("Writes a Java program in a file")
+    public void writeFile(
+            @P("destination filename, e.g. HelloWorld.java") String filename,
+            @P("source code in text format") String code) {
         try {
             Files.createDirectories(WORKSPACE);
             Files.writeString(WORKSPACE.resolve(filename), code);
