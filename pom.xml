@@ -19,8 +19,8 @@
     </properties>
 
     <modules>
-        <module>demos/chat-demo</module>
-        <module>demos/streaming-demo</module>
+        <module>demos/chat-summarization</module>
+        <module>demos/streaming-summarization</module>
         <module>demos/tool-demo-ls</module>
         <module>demos/java-coder-demo</module>
         <module>demos/java-coder-iterative</module>

@@ -10,8 +10,8 @@ Inspired by: <https://docs.quarkiverse.io/quarkus-langchain4j/dev/quickstart-sum
 
 | Module | What it shows | Default prompt |
 |---|---|---|
-| [`demos/chat-demo`](demos/chat-demo) | Blocking chat-model summarization service | `SampleTextToSummarize.txt` |
-| [`demos/streaming-demo`](demos/streaming-demo) | Token-streaming summarization service | `SampleTextToSummarize.txt` |
+| [`demos/chat-summarization`](demos/chat-summarization) | Blocking chat-model summarization service | `SampleTextToSummarize.txt` |
+| [`demos/streaming-summarization`](demos/streaming-summarization) | Token-streaming summarization service | `SampleTextToSummarize.txt` |
 | [`demos/tool-demo-ls`](demos/tool-demo-ls) | Tool calling — LLM invokes a `listDirectory` tool | `Show me what is inside /tmp` |
 | [`demos/java-coder-demo`](demos/java-coder-demo) | Host-controlled code generation + execution | `Write a Hello World Java program` |
 | [`demos/java-coder-iterative`](demos/java-coder-iterative) | Generate → compile → ask LLM to fix on error (up to 3 attempts) | `Write a matrix multiplication Java program` |
@@ -63,7 +63,7 @@ This produces a runnable `target/quarkus-app/quarkus-run.jar` inside each `demos
 
 Two equivalent options for every demo: the helper script under `scripts/`, or `java @tornado-argfile ... -jar ...` directly.
 
-### chat-demo (summarization, blocking)
+### chat-summarization (blocking)
 
 ```bash
 scripts/run-chat.sh
@@ -77,10 +77,10 @@ java @$TORNADOVM_HOME/tornado-argfile \
     -Dtornado.device.memory=8GB \
     -Dllama.batchedPrefill=true \
     -Dllama.prefillBatchSize=32 \
-    -jar demos/chat-demo/target/quarkus-app/quarkus-run.jar
+    -jar demos/chat-summarization/target/quarkus-app/quarkus-run.jar
 ```
 
-### streaming-demo (summarization, token-streamed)
+### streaming-summarization (token-streamed)
 
 ```bash
 scripts/run-streaming.sh

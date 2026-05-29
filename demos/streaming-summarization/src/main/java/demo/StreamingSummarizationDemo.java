@@ -1,5 +1,4 @@
-package org.example._1_summarization_service;
-
+package demo;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
@@ -11,8 +10,8 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 
-@QuarkusMain(name = "StreamingChatModelMain")
-public class MainStreamingChatModel implements QuarkusApplication {
+@QuarkusMain(name = "StreamingSummarizationDemo")
+public class StreamingSummarizationDemo implements QuarkusApplication {
 
     @Inject
     SummarizationStreamingService streamingService;
@@ -20,10 +19,10 @@ public class MainStreamingChatModel implements QuarkusApplication {
     @Override
     public int run(String... args) throws Exception {
 
-        System.out.println("Summarization Service (StreamingChatModel)");
-        System.out.println("==========================================");
+        System.out.println("Summarization Demo (StreamingChatModel)");
+        System.out.println("=======================================");
 
-        try (InputStream is = MainStreamingChatModel.class.getClassLoader().getResourceAsStream("SampleTextToSummarize.txt")) {
+        try (InputStream is = StreamingSummarizationDemo.class.getClassLoader().getResourceAsStream("SampleTextToSummarize.txt")) {
             if (is == null) {
                 throw new FileNotFoundException("SampleTextToSummarize.txt not found in resources");
             }
@@ -54,7 +53,6 @@ public class MainStreamingChatModel implements QuarkusApplication {
     }
 
     public static void main(String[] args) {
-        Quarkus.run(MainStreamingChatModel.class, args);
+        Quarkus.run(StreamingSummarizationDemo.class, args);
     }
-
 }

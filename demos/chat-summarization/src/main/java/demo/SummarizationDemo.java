@@ -1,4 +1,4 @@
-package org.example._1_summarization_service;
+package demo;
 
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-@QuarkusMain(name = "ChatModelMain")
-public class MainChatModel implements QuarkusApplication {
+@QuarkusMain(name = "SummarizationDemo")
+public class SummarizationDemo implements QuarkusApplication {
 
     @Inject
     SummarizationService ai;
@@ -18,10 +18,10 @@ public class MainChatModel implements QuarkusApplication {
     @Override
     public int run(String... args) throws Exception {
 
-        System.out.println("Summarization Service (Regular ChatModel)");
-        System.out.println("==========================================");
+        System.out.println("Summarization Demo (Regular ChatModel)");
+        System.out.println("======================================");
 
-        try (InputStream is = MainChatModel.class.getClassLoader().getResourceAsStream("SampleTextToSummarize.txt")) {
+        try (InputStream is = SummarizationDemo.class.getClassLoader().getResourceAsStream("SampleTextToSummarize.txt")) {
             if (is == null) {
                 throw new FileNotFoundException("SampleTextToSummarize.txt not found in resources");
             }
@@ -37,7 +37,6 @@ public class MainChatModel implements QuarkusApplication {
     }
 
     public static void main(String[] args) {
-        Quarkus.run(MainChatModel.class, args);
+        Quarkus.run(SummarizationDemo.class, args);
     }
 }
-

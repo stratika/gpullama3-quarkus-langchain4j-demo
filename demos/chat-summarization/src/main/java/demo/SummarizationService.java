@@ -1,9 +1,8 @@
-package org.example._1_summarization_service;
+package demo;
 
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
-import io.smallrye.mutiny.Multi;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @RegisterAiService
@@ -24,8 +23,8 @@ You are an expert content summarizer. You take content in and output a Markdown 
 - Do not repeat items in the output sections.
 - Do not start items with the same opening words.
 """)
-public interface SummarizationStreamingService {
+public interface SummarizationService {
 
     @UserMessage("Input: {input}")
-    Multi<String> summarize(String input);
+    String summarize(String input);
 }

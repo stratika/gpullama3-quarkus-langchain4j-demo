@@ -11,7 +11,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>streaming-demo</artifactId>
+    <artifactId>chat-summarization</artifactId>
 
     <dependencies>
         <dependency>
