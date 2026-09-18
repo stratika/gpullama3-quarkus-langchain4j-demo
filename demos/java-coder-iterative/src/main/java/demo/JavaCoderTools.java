@@ -26,6 +26,14 @@ public class JavaCoderTools {
         return lastBuildResult;
     }
 
+    /**
+     * Clears the stored result before an attempt, so a null afterwards means
+     * "the model never called buildAndRun" rather than "the previous attempt's result".
+     */
+    public void resetLastBuildResult() {
+        this.lastBuildResult = null;
+    }
+
     public void writeFile(String filename, String code) {
         try {
             Files.createDirectories(WORKSPACE);

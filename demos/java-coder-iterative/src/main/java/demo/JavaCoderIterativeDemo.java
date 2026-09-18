@@ -58,13 +58,18 @@ public class JavaCoderIterativeDemo implements QuarkusApplication {
             System.out.printf("%n[Attempt %d/%d]%n", attempt, MAX_FIX_ATTEMPTS);
             tools.writeFile(filename, code);
 
-            // Tool calling via runner agent — produces [Tool turn] / [LLM → tool call] logs
+            // Tool calling via runner agent — produces [Tool turn] / [LLM → tool call] logs.
+            // Reset first: a small model sometimes answers without calling the tool, and a
+            // leftover result from the previous attempt would be read as this attempt's.
+            tools.resetLastBuildResult();
             String report = runner.execute(filename, className);
 
             // Host checks the raw result captured by JavaCoderTools (no second tool call)
             String rawResult = tools.getLastBuildResult();
 
-            if (rawResult == null || rawResult.startsWith("Compilation FAILED:")) {
+            if (rawResult == null) {
+                System.out.println("(the model did not call buildAndRun — nothing was compiled)");
+            } else if (rawResult.startsWith("Compilation FAILED:")) {
                 System.out.println(rawResult);
             } else {
                 // Compilation succeeded — report the runner agent's synthesis and stop
@@ -78,10 +83,13 @@ public class JavaCoderIterativeDemo implements QuarkusApplication {
                 return 1;
             }
 
+            if (rawResult == null) {
+                // Nothing was compiled, so there is no error to fix — retry the same source.
+                continue;
+            }
+
             // Phase 3: ask LLM to fix the code based on the compiler error
-            String error = rawResult != null
-                    ? rawResult.substring("Compilation FAILED:\n".length())
-                    : "Unknown compilation error";
+            String error = rawResult.substring("Compilation FAILED:\n".length());
             LOG.infof("[JavaCoder] attempt %d failed — asking LLM to fix", attempt);
             String fixResponse = fixer.fixCode(code, error);
             code      = extractCode(fixResponse);
