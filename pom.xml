@@ -13,8 +13,15 @@
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <quarkus.version>3.28.0</quarkus.version>
-        <quarkus-langchain4j.version>1.10.0</quarkus-langchain4j.version>
+        <quarkus.version>3.33.3.1</quarkus.version>
+        <quarkus-langchain4j.version>1.14.0.CR3</quarkus-langchain4j.version>
+        <!-- GPULlama3 core. Pinned explicitly: the extension picks it via a JDK profile in its
+             own parent, which is not reliable to inherit here. 1.0.0-jdk25 is compiled against
+             tornado-api 5.0.0, so it needs TornadoVM 5.x (5.2.0-jdk25 verified) - on TornadoVM 6.x
+             it fails with "Kernel entry ... has no writeReplace()". For TornadoVM 6.0.0, build the
+             GPULlama3.java v1.0.0 tag against it and pin that build instead:
+               mvn install -DskipTests -Dtornadovm.version=6.0.0-jdk22plus -Djdk.version.suffix=-jdk25-tvm6 -->
+        <gpu-llama3.version>1.0.0-jdk25</gpu-llama3.version>
         <tornado.argfile>${env.TORNADOVM_HOME}/tornado-argfile</tornado.argfile>
     </properties>
 
@@ -34,6 +41,11 @@
                 <version>${quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.github.beehive-lab</groupId>
+                <artifactId>gpu-llama3</artifactId>
+                <version>${gpu-llama3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
